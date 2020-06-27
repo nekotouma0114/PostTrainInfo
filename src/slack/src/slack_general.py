@@ -22,4 +22,7 @@ class SlackGeneral(object):
         if token_type not in allow_token_types:
             raise ValueError("'token_type' isnt allow value. allow value => {}".format(__allow_token_type))
 
-        self.token = config["Token" if token_type == "user" else "BotToken"]
+        self._token = config["Token" if token_type == "user" else "BotToken"]
+    
+    def get_token(self) -> str:
+        return self._token
