@@ -26,3 +26,9 @@ class SlackGeneral(object):
     
     def get_token(self) -> str:
         return self._token
+
+class SlackReqestError(Exception):
+    """
+        Slack APIによるreqestにより{"ok" : False}が返却された場合に発生させる用の例外
+    """
+    pass
