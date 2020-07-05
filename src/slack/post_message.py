@@ -1,7 +1,7 @@
 import json
 import requests
 
-from src.slack.slack_general import SlackGeneral,SlackReqestError
+from slack.slack_general import SlackGeneral,SlackReqestError
 
 class PostMessage(SlackGeneral):
     API_URL="https://slack.com/api/chat.postMessage"
