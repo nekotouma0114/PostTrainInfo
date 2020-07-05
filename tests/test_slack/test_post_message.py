@@ -1,6 +1,6 @@
 import unittest
-from src.post_message import PostMessage
-from src.slack_general import SlackReqestError
+from src.slack.post_message import PostMessage
+from src.slack.slack_general import SlackReqestError
 
 class TestPostMessage(unittest.TestCase):
     def test_post_message(self):
@@ -9,7 +9,7 @@ class TestPostMessage(unittest.TestCase):
             https://api.slack.com/methods/api.test
             TODO: 成功ケースをどうするかの検討
         """
-        client = PostMessage("user","tests/token_files/UserToken.json")
+        client = PostMessage("user","tests/test_slack/token_files/UserToken.json")
         client.API_URL="https://slack.com/api/api.test"
         with self.assertRaises(SlackReqestError):
             client.post("channel_id","text",option=dict({'key':'value'}))
