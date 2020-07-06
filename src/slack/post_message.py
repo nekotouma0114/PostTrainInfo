@@ -6,8 +6,8 @@ from slack.slack_general import SlackGeneral,SlackReqestError
 class PostMessage(SlackGeneral):
     API_URL="https://slack.com/api/chat.postMessage"
 
-    def __init__(self,token_type: str,token_file: str):
-        super().__init__(token_type,token_file)
+    def __init__(self,token: str):
+        super().__init__(token)
 
     def post(self,channel_id: str,text: str,option: dict = None) -> dict:
         """

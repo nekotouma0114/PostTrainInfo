@@ -4,11 +4,11 @@ from datetime import datetime,timezone,timedelta
 from slack.post_message import PostMessage
 from slack.slack_general import SlackGeneral
 
-def main(token_file: str,channel_id: str,list_lines: list):
+def main(token: str,channel_id: str,list_lines: list):
     if not isinstance(list_lines,list):
         raise TypeError("'list_lines' isnt <class 'list'>.")
     
-    slack_client = PostMessage("bot",token_file)
+    slack_client = PostMessage(token)
     for info in get_train_info(list_lines):
         slack_client.post(channel_id,generate_message(info))
 
@@ -46,4 +46,4 @@ def datetime_from_rfc822(dt: str):
     return datetime.strptime(dt, '%a, %d %b %Y %H:%M:%S %z')
 
 if __name__ == '__main__':
-    main("./SlackToken.json","xxxxxxxxxxx",["肥薩おれんじ鉄道線"])
+    main("Token","xxxxxxxxxxx",["肥薩おれんじ鉄道線"])
