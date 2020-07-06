@@ -1,4 +1,4 @@
-import feedparser
+from lib import feedparser
 from datetime import datetime,timezone,timedelta
 
 from slack.post_message import PostMessage
@@ -33,6 +33,8 @@ def get_train_info(list_lines: list) -> list:
                             any(line in entry['title'] for line in list_lines)
                             ,rss_data['entries'])
     for entry in recent_entry:
+        #TODO: 後で消す(確認用にしばらくおいておく)
+        print(entry)
         yield entry
 
 def generate_message(info: dict) -> str:
@@ -44,6 +46,3 @@ def generate_message(info: dict) -> str:
 def datetime_from_rfc822(dt: str):
     #TODO: tzがついてないやつは多分ValueErrorを吐いて死ぬのでいい感じにする
     return datetime.strptime(dt, '%a, %d %b %Y %H:%M:%S %z')
-
-if __name__ == '__main__':
-    main("Token","xxxxxxxxxxx",["肥薩おれんじ鉄道線"])

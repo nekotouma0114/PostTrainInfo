@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  SchedulerEnabled:
+    Type: String
+    AllowedValues:
+      - "True"
+      - "False"
+    Default: "False"
+  SlackToken:
+    Type: String
+  SlackChannel:
+    Type: String
+  #環境変数はList<T>で受け取れないのでStringで引き渡してPython側でlistにする(,区切り)
+  Lines:
+    Type: String
+
+Resources:
+  ChangeSlackStatusProject:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Timeout: 60
+      FunctionName: PostTrainInfo
+      CodeUri: src/
+      Handler: lambda.lambda_handler
+      Runtime: python3.8
+      Events:
+        MorningEvent:
+          Type: Schedule 
+          Properties:
+            Name: PostTrainEventEveryHour
+            Enabled:
+              Ref: SchedulerEnabled
+            Schedule: cron(0 * * * * *)
+      Environment:
+        Variables:
+          SLACK_TOKEN:
+            Ref: SlackToken
+          SLACK_CHANNEL:
+            Ref: SlackChannel
+          LINES:
+            Ref: LineList

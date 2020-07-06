@@ -1,4 +1,6 @@
 import json
+import sys
+sys.path.append("./lib/")
 import requests
 
 from slack.slack_general import SlackGeneral,SlackReqestError
@@ -28,7 +30,6 @@ class PostMessage(SlackGeneral):
             "content-type": "application/json",
             "authorization": "Bearer {}".format(self.get_token())
         }
-        print(json.dumps(post_params))
         response = requests.post(self.API_URL,json.dumps(post_params),headers=headers).json()
 
         if response['ok']:
