@@ -35,4 +35,6 @@ sam local invoke -n environment.json
 
 # デプロイ
 
-(準備中)
+```bash
+sam deploy --guided
+```
