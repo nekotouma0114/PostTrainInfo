@@ -17,7 +17,7 @@ Parameters:
     Type: String
 
 Resources:
-  ChangeSlackStatusProject:
+  PostTrainInfo:
     Type: "AWS::Serverless::Function"
     Properties:
       Timeout: 60
@@ -26,13 +26,13 @@ Resources:
       Handler: lambda.lambda_handler
       Runtime: python3.8
       Events:
-        MorningEvent:
+        EveryHourEvent:
           Type: Schedule 
           Properties:
             Name: PostTrainEventEveryHour
             Enabled:
               Ref: SchedulerEnabled
-            Schedule: cron(0 * * * * *)
+            Schedule: cron(0 * * * ? *)
       Environment:
         Variables:
           SLACK_TOKEN:
@@ -40,4 +40,4 @@ Resources:
           SLACK_CHANNEL:
             Ref: SlackChannel
           LINES:
-            Ref: LineList
+            Ref: Lines
